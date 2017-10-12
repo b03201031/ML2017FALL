@@ -55,13 +55,16 @@ def Regression(beta, x):
 
 	return y
 
-def Loss(beta, x, y):
+def Loss(beta, x, y, lamda):
 	
 	col_beta = np.reshape(beta, (np.size(beta), 1))
 	col_y = np.reshape(y, (np.size(y),1))
 	M = col_y - np.dot(x, col_beta)
 	L = M*M
-	output = np.sum(L)
+
+	tmp_beta = beta**2
+
+	output = np.sum(L) + np.sum(tmp_beta[1:])
 
 
 	return output
@@ -106,6 +109,7 @@ def RMSE(x_test, y_test, beta):
 	for i in x_test:
 		rmse = rmse + (Regression(beta, i) - y_test[idx]) ** 2
 		idx = idx+1
+
 
 	rmse = math.sqrt(rmse / len(y_test))
 	return rmse

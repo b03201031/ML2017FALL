@@ -1,17 +1,23 @@
 import numpy as np
 import pandas as pd
 import derivative as fc
+import sys
 
-NUM_DURATION = 5
-NUM_ELEMENT_SELECTED = 7
-data_selected = np.array([0, 2, 5, 7, 8, 9, 12])
-full_beta = pd.read_csv("beta.csv", header = None)
-full_beta = full_beta.apply(pd.to_numeric)
-beta = full_beta.values[len(full_beta.values)-1, :]
 
-beta.shape = np.size(beta)
+f_path_in = sys.argv[1]
+f_path_out = sys.argv[2]
 
-full_data = pd.read_csv("test.csv", header = None)
+NUM_DURATION = 9
+NUM_ELEMENT_SELECTED = 18
+data_selected = np.arange(18)
+df_para = pd.read_csv("out_18.csv")
+
+print(df_para)
+#full_beta = full_beta.apply(pd.to_numeric)
+beta = df_para.values[2,:]
+
+
+full_data = pd.read_csv(f_path_in, header = None)
 full_data.drop(full_data.columns[0:2], axis=1, inplace=True)
 full_data.replace({'NR':0}, inplace=True)
 full_data = full_data.apply(pd.to_numeric)
@@ -30,26 +36,14 @@ for df in tmp_ls_data:
 	
 
 x.shape = int(len(full_data)/18), NUM_DURATION*NUM_ELEMENT_SELECTED
-print(len(x[:,0]))
 
-x_8 = x[:, NUM_DURATION*5:NUM_DURATION*6]
-x_9 = x[:, NUM_DURATION*6:NUM_DURATION*7]
 
-x = np.concatenate((x,x_8**2,x_9**2), axis=1)
+x = np.concatenate((x,x*x), axis=1)
 #x = np.concatenate((x,x*x*x), axis=1)
-print(len(x[:,0]))
-print(x)
 
-M_SD = pd.read_csv("M_SD.csv", header=None)
-M_SD = M_SD.apply(pd.to_numeric)
-M_SD_np = M_SD.values
-print(M_SD_np.shape)
+M = df_para.values[0, 1:]
 
-M = M_SD_np[0]
-SD = M_SD_np[1]
-
-print(len(x[:,0]))
-
+SD = df_para.values[1, 1:]
 
 for i in range(len(x[0,:])):
 	x[:, i] = (x[:, i] - M[i])/SD[i]
@@ -65,7 +59,7 @@ y = np.array([[]])
 
 col_beta = np.reshape(beta, (len(beta), 1))
 for x_0 in x:
-	print(np.dot(x_0, col_beta))
+	#print(np.dot(x_0, col_beta))
 
 	y = np.append(y, np.dot(x_0, col_beta))
 
@@ -85,4 +79,4 @@ df_y.index = ls_id
 df_y.rename_axis = "id"
 
 
-df_y.to_csv("test_output_04.csv")
+df_y.to_csv(f_path_out, index_label = "id")
