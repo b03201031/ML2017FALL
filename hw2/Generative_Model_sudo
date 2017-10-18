@@ -1,0 +1,11 @@
+calculate mean
+calculate covariance matrix
+
+f(x) = (1/(2pi)^(D/2))*((1/det(sigma))^(1/2))*exp(-1/2*(tanspose(x-mean) dot inverse(sigma) dot (x-mean)))
+
+implement covariance:
+	input x = first data
+			  second data
+			  ...
+
+	covariance = 1/(num of data) (x^T dot x)
