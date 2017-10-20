@@ -9,3 +9,10 @@ implement covariance:
 			  ...
 
 	covariance = 1/(num of data) (x^T dot x)
+
+)
+
+
+P(c1|x) = P(x|c1)P(c1)/ (P(x|c1)P(c1) + P(x|c2)p(c2))
+
+p(x|ck) form guassian distribution estimate
