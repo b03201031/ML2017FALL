@@ -41,6 +41,19 @@ N2 = NUM_ROW_WANTED_C2
 mean_all = np.mean(x_test, axis = 0)
 var_all = np.var(x_test, axis = 0)
 
+mean_all.shape = 1, 106
+var_all.shape = 1, 106
+
+print(mean_all.shape)
+
+df_mean_all = pd.DataFrame(mean_all)
+df_var_all = pd.DataFrame(var_all)
+
+print(df_mean_all)
+
+df_mean_all.to_csv("mean.csv", index = False, header = False)
+df_var_all.to_csv("var.csv", index = False, header = False)
+'''
 x_train_C1_normalized = DP.normalization(x_train_C1, mean_all, var_all)
 x_train_C2_normalized = DP.normalization(x_train_C2, mean_all, var_all)
 
@@ -87,3 +100,4 @@ df_y_pre = pd.DataFrame(y_pre_C1, index = idx)
 
 print("done")
 df_y_pre.to_csv("Y_PRE.csv", index = True, header = ["label"], index_label = "id")
+'''
