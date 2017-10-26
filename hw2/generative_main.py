@@ -41,19 +41,7 @@ N2 = NUM_ROW_WANTED_C2
 mean_all = np.mean(x_test, axis = 0)
 var_all = np.var(x_test, axis = 0)
 
-mean_all.shape = 1, 106
-var_all.shape = 1, 106
 
-print(mean_all.shape)
-
-df_mean_all = pd.DataFrame(mean_all)
-df_var_all = pd.DataFrame(var_all)
-
-print(df_mean_all)
-
-df_mean_all.to_csv("mean.csv", index = False, header = False)
-df_var_all.to_csv("var.csv", index = False, header = False)
-'''
 x_train_C1_normalized = DP.normalization(x_train_C1, mean_all, var_all)
 x_train_C2_normalized = DP.normalization(x_train_C2, mean_all, var_all)
 
@@ -73,6 +61,17 @@ sigma = (N1*sigma_C1 + N2*sigma_C2)/(N1+N2)
 w = DP.get_w(mean_C1_normalized, mean_C2_normalized, sigma)
 b = DP.get_b(mean_C1_normalized, mean_C2_normalized, sigma, N1, N2)
 
+w.shape = 1, 106
+
+b = np.array([b])
+df_w = pd.DataFrame(w)
+df_b = pd.DataFrame(b)
+
+df_w.to_csv("W_generaitve.csv", header=False, index=False)
+df_b.to_csv("b_generative.csv", header=False, index=False)
+
+
+'''
 z = DP.get_z(w, b, x_test_normalized)
 
 

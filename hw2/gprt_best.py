@@ -1,10 +1,13 @@
 from sklearn.ensemble import GradientBoostingClassifier
 import pandas as pd
-X_PATH = "X_train"
-NUM_DATA_X = 32561
+import sys
 
-Y_PATH = "Y_train"
-X_TEST_PATH = "X_test"
+X_PATH = sys.argv[3]
+Y_PATH = sys.argv[4]
+X_TEST_PATH = sys.argv[5]
+PRE_PATH = sys.argv[6]
+
+NUM_DATA_X = 32561
 
 NUM_TRAIN = 32000
 NUM_TEST = 32561-32000
@@ -30,4 +33,4 @@ idx = []
 for i in range(len(y_pre)):
 	idx.append(i+1)
 df_y_pre = pd.DataFrame(y_pre, index = idx)
-df_y_pre.to_csv("Y_PRE_gprt_04.csv", index = True, header = ["label"], index_label = "id")
+df_y_pre.to_csv(PRE_PATH, index = True, header = ["label"], index_label = "id")
