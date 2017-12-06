@@ -1,0 +1,7 @@
+#!/bin/bash
+wget https://www.dropbox.com/s/1v4n9f2dyn0ppgh/model_02_10_125.h5?dl=1 -O model_1.h5 &&
+wget https://www.dropbox.com/s/38qsaxrra5mb3lt/new_model_epoch_06_vloss_0.44.hdf5?dl=1 -O model_2.hdf5 &&
+wget https://www.dropbox.com/s/nvda0kehoozqsuo/cnn_model_epoch_39_vloss_0.43.hdf5?dl=1 -O model_3.hdf5 &&
+wget https://www.dropbox.com/s/693e41jhdthsrng/gensim_model_125?dl=1 -O gensim_model_125 &&
+	
+python3 ensemble_predict.py $1 $2
