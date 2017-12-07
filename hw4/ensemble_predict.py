@@ -88,7 +88,7 @@ def model_2():
 
 def predict(model, sample_id, x_predict, prediction_path):
 	print("start to predict")
-	y_predict = model.predict(x_predict, verbose = 1)
+	y_predict = model.predict(x_predict, verbose = 1)[:, 1]
 	predict_label = []
 	
 	print("data conversting")
@@ -194,15 +194,20 @@ def main():
 
 	
 	sample_id, x_test = load_testing_data(TESTING_DATA_PATH)
+
 	print(type(x_test[0]))
 	print("word to vec ...")
+
 	x_test = dp.word_to_vec(x_test, W2V_MODEL_PATH)
 	print("start to padding ...")
 	x_test = pad_sequences(x_test, maxlen=MAX_LEN, padding='post', dtype='float32')
-
+	x_test = x_test.reshape((-1,40,125,1))
 	#sample_id = np.load("./preprocessed_data/testing_id.npy")[:100]
 	#x_test = np.load("./preprocessed_data/testing_data_125.npy")[:100]
 
+	model = load_model("./model_3.hdf5")
+	predict(model, sample_id, x_test, PREDICTION_SAVE_PATH)
+	'''
 	predictions = []
 	model1 = load_model(ENSEMBLE_MODEL_PATH_ONE[0])
 	predictions.append(model1.predict(x_test))
@@ -217,8 +222,7 @@ def main():
 	voting(predictions, sample_id, PREDICTION_SAVE_PATH)
 	#sample_id = np.load("./preprocessed_data/testing_id.npy")
 	#x_test = np.load("./preprocessed_data/testing_data_125_nofilter.npy")
-	
-	
+	'''
 	
 
 	#build_model("texts_train_125_nofilter.npy", "./preprocessed_data/testing_id.npy", "./models/model_2_nofilter.h5", model = model_2())
