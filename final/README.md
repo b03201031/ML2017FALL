@@ -3,8 +3,7 @@
 ##### Execution Environment
 
 - python 3
-- GPU computing is recommanded for training efficiency
- 
+
 ##### Packages required
 
 - [gensim]  (3.1.0)
